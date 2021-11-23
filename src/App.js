@@ -13,7 +13,7 @@ function App() {
   /* a better safer global var (hook) to get all the books  */
   let [AllBooks, getAllBooks] = useState([]);
 /* hook only for changing positions of books  */
-  let [bookCurrentShelf, moveFromShelf] = useState(false);
+  let [bookCurrentShelf, moveFromShelf] = useState(0);
  /* api fetched once */
   useEffect(() => {
     getAll().then((booksList) => {
@@ -24,15 +24,16 @@ function App() {
   console.log("AllBooks from App");
   console.log(AllBooks);
    
- 
+   function bookIndex(book){
+     return AllBooks.findIndex( function(aBook){ return aBook.id === book.id;})
+   }
   function updateBookShelf(book, shelf) {
     console.log("id of the book param  "+book.id +" my book arr "+Array.isArray(AllBooks))
-    let doBookInsidethisShelfIndex = AllBooks.findIndex( function(aBook){ return aBook.id === book.id;})
-    
-    console.log("index of this book "+ doBookInsidethisShelfIndex)
+     
+    console.log("index of this book "+ bookIndex(book))
     /**the book is already existed in my get all => update the current shelf  */
-    if (doBookInsidethisShelfIndex !==-1) {
-      AllBooks[doBookInsidethisShelfIndex].shelf = shelf
+    if (bookIndex(book) !==-1) {
+      AllBooks[bookIndex(book)].shelf = shelf
     } 
     else {
       /**the book is new to my get all api (my books)  push it in allbooks array */
@@ -42,12 +43,13 @@ function App() {
       AllBooks.push(book);
      
     }
-    // update the book shelf using the update api
-    update(book,shelf);
+    
     // update the hook
     getAllBooks(AllBooks);
+    // update the book shelf using the update api
+    update(book,shelf);
     /* flip the current state */
-    moveFromShelf(!bookCurrentShelf)
+    moveFromShelf(++bookCurrentShelf)
   }
 
   return (

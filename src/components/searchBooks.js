@@ -19,17 +19,17 @@ export default function SearchBooks(props) {
       console.log("all my bboks from serach tab")
       console.log(props.AllBooks)
       if(results&&Array.isArray(results)){
-     for (let i =0 ;i<results.length;i++){
-
-      for (let j =0 ;j<props.AllBooks.length;j++){
-        console.log("found  "+results[i].id+"name  "+results[i].title +"current shelf "+props.AllBooks[j].shelf)
-        if(results[i].id===props.AllBooks[j].id)
+      let j=0;
+      for (let res of results){
+      while (j<props.AllBooks.length){
+        console.log("found  "+res.id+"name  "+res.title +"current shelf "+props.AllBooks[j].shelf)
+        if(res.id===props.AllBooks[j].id)
         {
-          results[i].shelf=props.AllBooks[j].shelf;
+          res.shelf=props.AllBooks[j].shelf;
           console.log("\n\n")
-          console.log("UPDATE "+results[i].shelf)
+          console.log("UPDATE "+res.shelf)
         }
-
+        j++;
       }
     }
   }
