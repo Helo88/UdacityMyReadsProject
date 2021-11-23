@@ -1,4 +1,4 @@
-<h1 style="red">Project Purpose: </h1>
+<h1 style={color:"red"}>Project Purpose: </h1>
 This project was built for the Udacity React Nanodegree Program. The purpose of the project is to demonstrate understanding of the basic structure and operation of a React-based app.
 
 # How to Load the App
