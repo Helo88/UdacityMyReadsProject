@@ -10,10 +10,10 @@ Once Node is installed, navigate to the directory where you want to store the ap
 then in your git bash terminal type > git clone https://github.com/Helo88/UdacityMyReadsProject or download zip file 
 <br>
 then in your terminal type 
-<i>yarn or yarn install</i>
+<b><i>yarn or yarn install</i><b>
 Once all of the dependencies have been installed you can launch the app with
 finally type 
-<i>yarn start</i>
+ <b><i>yarn start</i></b>
  
 A new browser window should automatically open displaying the app. If it doesn't, navigate to http://localhost:3000/ in your browser .
 
