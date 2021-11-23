@@ -1,45 +1,53 @@
-import { Routes, Route, Link } from "react-router-dom";
-import { useState, useEffect, React, Redirect } from "react";
+import { Routes, Route} from "react-router-dom";
+import { useState, useEffect, React } from "react";
 
-import BookShelf from "./components/BookShelf";
+
 import BooksLayout from "./BooksLayout";
 import "./BooksAPI";
 import "./App.css";
 
-import BookList from "./components/BookList";
 import SearchBooks from "./components/searchBooks";
 import { getAll ,update } from "./BooksAPI";
 
 function App() {
+  /* a better safer global var (hook) to get all the books  */
   let [AllBooks, getAllBooks] = useState([]);
+/* hook only for changing positions of books  */
   let [bookCurrentShelf, moveFromShelf] = useState(false);
-
+ /* api fetched once */
   useEffect(() => {
     getAll().then((booksList) => {
       getAllBooks(booksList);
     });
   }, []);
 
-  console.log("AllBooks");
+  console.log("AllBooks from App");
   console.log(AllBooks);
    
  
   function updateBookShelf(book, shelf) {
-    let updatedBooks = AllBooks;
-    console.log("iddd   "+book.id)
-    let doBookInsidethisShelfIndex = AllBooks.findIndex( function(aBook){ return aBook.id == book.id;})
-    console.log("iddd"+ doBookInsidethisShelfIndex)
-    if (doBookInsidethisShelfIndex !=-1) {
-      updatedBooks[doBookInsidethisShelfIndex].shelf = shelf
+    console.log("id of the book param  "+book.id +" my book arr "+Array.isArray(AllBooks))
+    let doBookInsidethisShelfIndex = AllBooks.findIndex( function(aBook){ return aBook.id === book.id;})
+    
+    console.log("index of this book "+ doBookInsidethisShelfIndex)
+    /**the book is already existed in my get all => update the current shelf  */
+    if (doBookInsidethisShelfIndex !==-1) {
+      AllBooks[doBookInsidethisShelfIndex].shelf = shelf
     } 
     else {
+      /**the book is new to my get all api (my books)  push it in allbooks array */
       // add new book shelf
       book.shelf = shelf;
-      // save book
-      updatedBooks.push(book);
+      // save the book
+      AllBooks.push(book);
+     
     }
+    // update the book shelf using the update api
     update(book,shelf);
-    getAllBooks(updatedBooks);
+    // update the hook
+    getAllBooks(AllBooks);
+    /* flip the current state */
+    moveFromShelf(!bookCurrentShelf)
   }
 
   return (
@@ -49,13 +57,14 @@ function App() {
           <Route
             path="/"
             element={
-              <BooksLayout
-                AllBooks={(AllBooks && AllBooks.length) > 0 ? AllBooks : []}
+              <BooksLayout 
+              // check if all books is an array 
+                AllBooks={(AllBooks && Array.isArray(AllBooks))  ? AllBooks : []}
                 updateBookShelf={updateBookShelf}
               />
             }
           ></Route>
-          <Route path="/search" element={<SearchBooks />}></Route>
+          <Route path="/search" element={<SearchBooks  AllBooks={(AllBooks && Array.isArray(AllBooks))  ? AllBooks : []}  updateBookShelf={updateBookShelf} />}></Route>
         </Routes>
       </div>
     </div>

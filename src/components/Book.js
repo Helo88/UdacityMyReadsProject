@@ -1,19 +1,29 @@
-import { useState } from "react";
 
 export default function Book(props) {
-  let[bookState,changeBookState]=useState("");
   return (
     
     <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: 128, height: 193,
-           backgroundImage:`url(${props.book.imageLinks.smallThumbnail})` }}></div>
+
+        <div className="book-cover" style={
+           { width: 128, height: 193,
+           backgroundImage:(props.book.imageLinks&&props.book.imageLinks.smallThumbnail) ?
+           `url(${props.book.imageLinks.smallThumbnail})` : "none"
+            }    }></div>
+
         <div className="book-shelf-changer">
           <select
+              //  check if there is old shelf value  display it if no =>none
              value={props.book.shelf ? props.book.shelf : "none"}
-             onChange={(e)=>{props.updateBookShelf(props.book,e.target.value);
+            //  change shelf
              
-             console.log("Book state   " +e.target.value+"---"+props.book)
+             onChange={(e)=>{ console.log("old shelf  ",props.book.shelf)
+               props.updateBookShelf(props.book,e.target.value);
+             //display result
+              console.log("Book new state   " +e.target.value+" --- "+props.book.title)
+              // check if shelf is updated
+              console.log("new shelf  ",props.book.shelf)
+              
           }}
           >
             <option value="move" disabled>Move to...</option>

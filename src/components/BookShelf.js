@@ -1,11 +1,7 @@
 import Book from "./Book";
 
 export default function BookShelf(props) {
-  // let books=[{name:"hello",author:"daom"},{name:"naruto",author:"suki"}]
-  // return (
-  //      <div>
-  //          {books.map((book,index)=>{return <Book book={book} key={index} />})}
-  //      </div>
+
 
   return (
     <div className="bookshelf">
@@ -15,9 +11,9 @@ export default function BookShelf(props) {
             {/* loop  */}
             
                
-                {/* <Book book={book}/> */}
+                {/* keep passing the updateBookShelf function till reach the book (the desired Child) */}
 
-                {((props.AllBooks)&&((props.AllBooks).length> 0)) ?
+                {(props.AllBooks) ?
                  (props.AllBooks).map((book,index)=>{return <li key={index}> <Book updateBookShelf={props.updateBookShelf}  book={book}/> </li>})
                  :<li></li>
                  }
