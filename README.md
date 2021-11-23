@@ -3,11 +3,11 @@ This project was built for the Udacity React Nanodegree Program. The purpose of 
 
 # How to Load the App
 
-The project uses Node.js and the Create-React-App starter. If you do not have Node >= 6.x installed, you can download it here:<a href=" "> Node.js </a>
+The project uses Node.js and the Create-React-App starter. If you do not have Node >= 6.x installed, you can download it here:<a href="https://nodejs.org/en/download/"> Node.js </a>
 
 Once Node is installed, navigate to the directory where you want to store the app
 
-git clonehttps://github.com/Helo88/UdacityMyReadsProject
+git clone https://github.com/Helo88/UdacityMyReadsProject
 yarn or yarn install
 Once all of the dependencies have been installed you can launch the app with
 
